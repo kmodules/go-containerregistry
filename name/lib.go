@@ -35,7 +35,7 @@ type Image struct {
 func ParseReference(s string, opts ...name.Option) (*Image, error) {
 	ref, err := name.ParseReference(s, opts...)
 	if err != nil {
-		panic(err)
+		return nil, err
 	}
 
 	var img Image
