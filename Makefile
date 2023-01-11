@@ -61,8 +61,8 @@ BIN_PLATFORMS    := $(DOCKER_PLATFORMS) darwin/amd64 darwin/arm64 windows/amd64 
 OS   := $(if $(GOOS),$(GOOS),$(shell go env GOOS))
 ARCH := $(if $(GOARCH),$(GOARCH),$(shell go env GOARCH))
 
-BASEIMAGE_PROD   ?= gcr.io/distroless/static-debian11
-# BASEIMAGE_PROD   ?= alpine
+# BASEIMAGE_PROD   ?= gcr.io/distroless/static-debian11
+BASEIMAGE_PROD   ?= alpine
 BASEIMAGE_DBG    ?= debian:bullseye
 
 IMAGE            := $(REGISTRY)/$(BIN)
@@ -341,13 +341,14 @@ lint: $(BUILD_DIRS)
 	    --env HTTPS_PROXY=$(HTTPS_PROXY)                        \
 	    --env GOFLAGS="-mod=vendor"                             \
 	    $(BUILD_IMAGE)                                          \
-	    golangci-lint run --enable $(ADDTL_LINTERS) --timeout=10m --skip-files="generated.*\.go$\" --skip-dirs-use-default --skip-dirs=client,vendor
+	    golangci-lint run --enable $(ADDTL_LINTERS) --timeout=10m --skip-files="generated.*\.go$\" --skip-dirs-use-default --skip-dirs=client,vendor,bin
 
 $(BUILD_DIRS):
 	@mkdir -p $@
 
 KUBE_NAMESPACE    ?= kubeops
 REGISTRY_SECRET   ?=
+LICENSE_FILE      ?=
 IMAGE_PULL_POLICY	?= IfNotPresent
 
 ifeq ($(strip $(REGISTRY_SECRET)),)
@@ -356,20 +357,28 @@ else
 	IMAGE_PULL_SECRETS = --set imagePullSecrets[0].name=$(REGISTRY_SECRET)
 endif
 
+NATS_ADDR     ?= this-is-nats.appscode.ninja:4222
+NATS_USERNAME ?= $(THIS_IS_NATS_USERNAME)
+NATS_PASSWORD ?= $(THIS_IS_NATS_PASSWORD)
+
 .PHONY: install
 install:
 	@cd ../installer; \
-	helm upgrade -i dns-proxy charts/echo-image-digest --wait \
+	helm upgrade -i scanner charts/scanner --wait \
 		--namespace=$(KUBE_NAMESPACE) --create-namespace \
-		--set image.registry=$(REGISTRY) \
-		--set image.tag=$(TAG_PROD) \
+		--set app.registry=$(REGISTRY) \
+		--set app.tag=$(TAG_PROD) \
 		--set imagePullPolicy=$(IMAGE_PULL_POLICY) \
+		--set-file license=$(LICENSE_FILE) \
+		--set nats.addr=$(NATS_ADDR) \
+		--set nats.auth.username=$(NATS_USERNAME) \
+		--set nats.auth.password=$(NATS_PASSWORD) \
 		$(IMAGE_PULL_SECRETS); \
 
 .PHONY: uninstall
 uninstall:
 	@cd ../installer; \
-	helm uninstall dns-proxy --namespace=$(KUBE_NAMESPACE) || true
+	helm uninstall scanner --namespace=$(KUBE_NAMESPACE) || true
 
 .PHONY: purge
 purge: uninstall
@@ -434,7 +443,7 @@ qa:
 		echo "Are you trying to 'release' binaries to prod?"; \
 		exit 1;                                               \
 	fi
-	@$(MAKE) all-push docker-manifest --no-print-directory
+	@$(MAKE) all-build all-push docker-manifest --no-print-directory
 
 .PHONY: release
 release:
@@ -446,7 +455,7 @@ release:
 		echo "apply tag to release binaries and/or docker images."; \
 		exit 1;                                                     \
 	fi
-	@$(MAKE) all-push docker-manifest --no-print-directory
+	@$(MAKE) all-build all-push docker-manifest --no-print-directory
 
 .PHONY: clean
 clean:
@@ -454,8 +463,7 @@ clean:
 
 .PHONY: run
 run:
-	go run -mod=vendor ./cmd/echo-image-digest run \
-		--v=3
+	go run -mod=vendor ./cmd/... --image=alpine
 
 .PHONY: push-to-kind
 push-to-kind: container
