@@ -59,7 +59,7 @@ jobs:
             bin/echo-image-digest-linux-arm64
             bin/echo-image-digest-darwin-amd64
             bin/echo-image-digest-darwin-arm64
-            bin/echo-image-digest-windows-arm64.exe
+            bin/echo-image-digest-windows-amd64.exe
             bin/echo-image-digest-windows-arm64.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
