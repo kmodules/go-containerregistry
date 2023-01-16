@@ -23,6 +23,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"sync"
 
 	"github.com/awslabs/amazon-ecr-credential-helper/ecr-login"
 	"github.com/chrismellard/docker-credential-acr-env/pkg/credhelper"
@@ -32,15 +33,29 @@ import (
 	"github.com/google/go-containerregistry/pkg/crane"
 	"github.com/google/go-containerregistry/pkg/v1/google"
 	"github.com/google/go-containerregistry/pkg/v1/remote"
+	"github.com/spf13/pflag"
 	"golang.org/x/net/publicsuffix"
+	"gomodules.xyz/sets"
 	"k8s.io/client-go/kubernetes"
 )
 
 var (
+	insecureRegistries  []string
+	once                sync.Once
+	insecureRegistrySet sets.String
+
 	SkipImageDigest string
 	amazonKeychain  = authn.NewKeychainFromHelper(ecr.NewECRHelper(ecr.WithLogger(io.Discard)))
 	azureKeychain   = authn.NewKeychainFromHelper(credhelper.NewACRCredentialsHelper())
 )
+
+// AddIsecureRegsitryFlag is for explicitly initializing the flags
+func AddInsecureRegistriesFlag(fs *pflag.FlagSet) {
+	if fs == nil {
+		fs = pflag.CommandLine
+	}
+	fs.StringSliceVar(&insecureRegistries, "insecure-registries", insecureRegistries, "List of registries to be used without TLS")
+}
 
 func ImageWithDigest(kc kubernetes.Interface, image string, k8sOpts *k8schain.Options) (string, error) {
 	// Drop the "@sha256:hash_string" part, if any
@@ -107,6 +122,12 @@ func WithTLSSkipVerify(s string) crane.Option {
 func probablyInsecureRegistry(s string) bool {
 	parts := strings.Split(s, "/")
 	if len(parts) > 1 && strings.ContainsRune(parts[0], '.') {
+		once.Do(func() {
+			insecureRegistrySet = sets.NewString(insecureRegistries...)
+		})
+		if insecureRegistrySet.Has(parts[0]) {
+			return true
+		}
 		if _, icann := publicsuffix.PublicSuffix(parts[0]); !icann {
 			return true
 		}

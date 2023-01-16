@@ -57,8 +57,9 @@ func NewRootCmd() *cobra.Command {
 	}
 	cmd.Flags().StringVar(&image, "image", image, "Image name")
 	cmd.Flags().StringVar(&k8sOpts.Namespace, "namespace", k8sOpts.Namespace, "Pod namespace")
-	cmd.Flags().StringVar(&k8sOpts.ServiceAccountName, "serviceAccountName", k8sOpts.ServiceAccountName, "Pod service account name")
-	cmd.Flags().StringSliceVar(&k8sOpts.ImagePullSecrets, "imagePullSecret", k8sOpts.ImagePullSecrets, "Name of image pull secret")
+	cmd.Flags().StringVar(&k8sOpts.ServiceAccountName, "service-account-name", k8sOpts.ServiceAccountName, "Pod service account name")
+	cmd.Flags().StringSliceVar(&k8sOpts.ImagePullSecrets, "image-pull-secrets", k8sOpts.ImagePullSecrets, "Name of image pull secret")
+	authn.AddInsecureRegistriesFlag(cmd.Flags())
 
 	return cmd
 }
