@@ -47,7 +47,7 @@ func NewRootCmd() *cobra.Command {
 			if err != nil {
 				return err
 			}
-			result, err := authn.ImageWithDigest(kc, image, []k8schain.Options{k8sOpts})
+			result, err := authn.ImageWithDigest(kc, image, &k8sOpts)
 			if err != nil {
 				return err
 			}
