@@ -35,7 +35,7 @@ import (
 	"github.com/google/go-containerregistry/pkg/v1/remote"
 	"github.com/spf13/pflag"
 	"golang.org/x/net/publicsuffix"
-	"gomodules.xyz/sets"
+	"k8s.io/apimachinery/pkg/util/sets"
 	"k8s.io/client-go/kubernetes"
 )
 
@@ -57,7 +57,7 @@ func AddInsecureRegistriesFlag(fs *pflag.FlagSet) {
 	fs.StringSliceVar(&insecureRegistries, "insecure-registries", insecureRegistries, "List of registries to be used without TLS")
 }
 
-func ImageWithDigest(kc kubernetes.Interface, image string, k8sOpts *k8schain.Options) (string, error) {
+func ImageWithDigest(kc kubernetes.Interface, image string, k8sOpts []k8schain.Options) (string, error) {
 	// Drop the "@sha256:hash_string" part, if any
 	image, err := ImageWithoutDigest(image)
 	if err != nil {
@@ -81,15 +81,28 @@ func ImageWithDigest(kc kubernetes.Interface, image string, k8sOpts *k8schain.Op
 }
 
 // CreateKeyChain a multi keychain based in input arguments
-func CreateKeyChain(ctx context.Context, client kubernetes.Interface, k8sOpts *k8schain.Options) (authn.Keychain, error) {
+func CreateKeyChain(ctx context.Context, client kubernetes.Interface, k8sOpts []k8schain.Options) (authn.Keychain, error) {
 	// xref: https://github.com/google/k8s-digester/blob/v0.1.9/pkg/keychain/keychain.go#L42-L64
-	if k8sOpts != nil {
-		kChain, err := k8schain.New(ctx, client, *k8sOpts)
-		if err != nil {
-			return nil, err
+	if len(k8sOpts) > 0 || isOptionsSet() {
+		keychains := make([]authn.Keychain, 0, len(k8sOpts)+2)
+		for i := range k8sOpts {
+			kChain, err := k8schain.New(ctx, client, k8sOpts[i])
+			if err != nil {
+				return nil, err
+			}
+			keychains = append(keychains, kChain)
 		}
-		return authn.NewMultiKeychain(kChain, authn.DefaultKeychain), nil
+		if isOptionsSet() {
+			kChain, err := k8schain.New(ctx, client, optsFromFlags)
+			if err != nil {
+				return nil, err
+			}
+			keychains = append(keychains, kChain)
+		}
+		keychains = append(keychains, authn.DefaultKeychain)
+		return authn.NewMultiKeychain(keychains...), nil
 	}
+
 	return authn.NewMultiKeychain(
 		google.Keychain,
 		authn.DefaultKeychain,
