@@ -24,14 +24,14 @@ import (
 )
 
 var optsFromFlags = k8schain.Options{
-	Namespace: meta.PodNamespace(),
+	Namespace:          meta.PodNamespace(),
+	ServiceAccountName: meta.PodServiceAccount(),
 }
 
 func AddKubeChainOptionsFlags(fs *pflag.FlagSet) {
 	if fs == nil {
 		fs = pflag.CommandLine
 	}
-	fs.StringVar(&optsFromFlags.ServiceAccountName, "service-account-name", optsFromFlags.ServiceAccountName, "Pod service account name")
 	fs.StringSliceVar(&optsFromFlags.ImagePullSecrets, "image-pull-secrets", optsFromFlags.ImagePullSecrets, "Name of image pull secret")
 }
 

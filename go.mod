@@ -5,7 +5,7 @@ go 1.18
 require (
 	github.com/awslabs/amazon-ecr-credential-helper/ecr-login v0.0.0-20221216172807-aacaa2a41a47
 	github.com/chrismellard/docker-credential-acr-env v0.0.0-20221129204813-6a4d6ed5d396
-	github.com/google/go-containerregistry v0.12.1
+	github.com/google/go-containerregistry v0.13.0
 	github.com/google/go-containerregistry/pkg/authn/k8schain v0.0.0-20221212195047-6ba20c80c958
 	github.com/spf13/cobra v1.6.0
 	github.com/spf13/pflag v1.0.5
@@ -16,7 +16,7 @@ require (
 	k8s.io/apimachinery v0.25.3
 	k8s.io/client-go v0.25.3
 	k8s.io/klog/v2 v2.80.1
-	kmodules.xyz/client-go v0.25.16
+	kmodules.xyz/client-go v0.25.17
 	sigs.k8s.io/controller-runtime v0.13.0
 )
 

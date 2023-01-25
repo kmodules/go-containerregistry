@@ -249,8 +249,8 @@ github.com/google/go-cmp v0.5.5/go.mod h1:v8dTdLbMG2kIc/vJvl+f65V22dbkXbowE6jgT/
 github.com/google/go-cmp v0.5.8/go.mod h1:17dUlkBOakJ0+DkrSSNjCkIjxS6bF9zb3elmeNGIjoY=
 github.com/google/go-cmp v0.5.9 h1:O2Tfq5qg4qc4AmwVlvv0oLiVAGB7enBSJ2x2DqQFi38=
 github.com/google/go-cmp v0.5.9/go.mod h1:17dUlkBOakJ0+DkrSSNjCkIjxS6bF9zb3elmeNGIjoY=
-github.com/google/go-containerregistry v0.12.1 h1:W1mzdNUTx4Zla4JaixCRLhORcR7G6KxE5hHl5fkPsp8=
-github.com/google/go-containerregistry v0.12.1/go.mod h1:sdIK+oHQO7B93xI8UweYdl887YhuIwg9vz8BSLH3+8k=
+github.com/google/go-containerregistry v0.13.0 h1:y1C7Z3e149OJbOPDBxLYR8ITPz8dTKqQwjErKVHJC8k=
+github.com/google/go-containerregistry v0.13.0/go.mod h1:J9FQ+eSS4a1aC2GNZxvNpbWhgp0487v+cgiilB4FqDo=
 github.com/google/go-containerregistry/pkg/authn/k8schain v0.0.0-20221212195047-6ba20c80c958 h1:Yf6q0vMjjisDldHd0IinImKf3SrgfEsirRE6qExOCbo=
 github.com/google/go-containerregistry/pkg/authn/k8schain v0.0.0-20221212195047-6ba20c80c958/go.mod h1:x5fIlj5elU+/eYF60q4eASMQ9kDc+GMFa7UU9M3mFFw=
 github.com/google/go-containerregistry/pkg/authn/kubernetes v0.0.0-20221212195047-6ba20c80c958 h1:oZ7GP/ieMWIudXiOTN/rJqZkMvzAJTMnbjrpqa1XSK0=
@@ -866,8 +866,8 @@ k8s.io/kube-openapi v0.0.0-20221012153701-172d655c2280 h1:+70TFaan3hfJzs+7VK2o+O
 k8s.io/kube-openapi v0.0.0-20221012153701-172d655c2280/go.mod h1:+Axhij7bCpeqhklhUTe3xmOn6bWxolyZEeyaFpjGtl4=
 k8s.io/utils v0.0.0-20221012122500-cfd413dd9e85 h1:cTdVh7LYu82xeClmfzGtgyspNh6UxpwLWGi8R4sspNo=
 k8s.io/utils v0.0.0-20221012122500-cfd413dd9e85/go.mod h1:OLgZIPagt7ERELqWJFomSt595RzquPNLL48iOWgYOg0=
-kmodules.xyz/client-go v0.25.16 h1:B9gf90o+eWFlGgXv+hx0k8atkCRjMpDgAWycvA/obfk=
-kmodules.xyz/client-go v0.25.16/go.mod h1:PG0s5FqmCvIKXudUhaJELBVbKbX6ESoefVR1cibkl+0=
+kmodules.xyz/client-go v0.25.17 h1:DbofW2bVaY8vGtR2ARE8vU3rWwAui9Pp0ERuzV0vMsc=
+kmodules.xyz/client-go v0.25.17/go.mod h1:OuZ+gMtY0fEo99aOTuTmyyYZd3GpLgD5bzo3191twj8=
 rsc.io/binaryregexp v0.2.0/go.mod h1:qTv7/COck+e2FymRvadv62gMdZztPaShugOCi3I+8D8=
 rsc.io/quote/v3 v3.1.0/go.mod h1:yEA65RcK8LyAZtP9Kv3t0HmxON59tX3rD+tICJqUlj0=
 rsc.io/sampler v1.3.0/go.mod h1:T1hPZKmBbMNahiBKFy5HrXp6adAjACjK9JXDnKaTXpA=
