@@ -37,6 +37,7 @@ import (
 	"golang.org/x/net/publicsuffix"
 	"k8s.io/apimachinery/pkg/util/sets"
 	"k8s.io/client-go/kubernetes"
+	"k8s.io/client-go/rest"
 )
 
 var (
@@ -110,6 +111,21 @@ func CreateKeyChain(ctx context.Context, client kubernetes.Interface, k8sOpts *k
 		amazonKeychain,
 		azureKeychain,
 	), nil
+}
+
+// CreateInClusterKeyChain a multi keychain based using in cluster client
+func CreateInClusterKeyChain(ctx context.Context, k8sOpts *k8schain.Options) (authn.Keychain, error) {
+	clusterConfig, err := rest.InClusterConfig()
+	if err != nil {
+		return nil, err
+	}
+
+	client, err := kubernetes.NewForConfig(clusterConfig)
+	if err != nil {
+		return nil, err
+	}
+
+	return CreateKeyChain(ctx, client, k8sOpts)
 }
 
 // ImageWithoutDigest takes image as input, return image without the digest value
