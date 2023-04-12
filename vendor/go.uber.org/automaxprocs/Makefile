@@ -28,7 +28,7 @@ $(GOLINT): tools/go.mod
 	cd tools && go install golang.org/x/lint/golint
 
 $(STATICCHECK): tools/go.mod
-	cd tools && go install honnef.co/go/tools/cmd/staticcheck@2023.1.2
+	cd tools && go install honnef.co/go/tools/cmd/staticcheck
 
 .PHONY: lint
 lint: $(GOLINT) $(STATICCHECK)

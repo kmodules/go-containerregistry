@@ -11,8 +11,6 @@ import (
 type EmptyUploadException struct {
 	Message *string
 
-	ErrorCodeOverride *string
-
 	noSmithyDocumentSerde
 }
 
@@ -25,20 +23,13 @@ func (e *EmptyUploadException) ErrorMessage() string {
 	}
 	return *e.Message
 }
-func (e *EmptyUploadException) ErrorCode() string {
-	if e == nil || e.ErrorCodeOverride == nil {
-		return "EmptyUploadException"
-	}
-	return *e.ErrorCodeOverride
-}
+func (e *EmptyUploadException) ErrorCode() string             { return "EmptyUploadException" }
 func (e *EmptyUploadException) ErrorFault() smithy.ErrorFault { return smithy.FaultClient }
 
 // The specified image has already been pushed, and there were no changes to the
 // manifest or image tag after the last push.
 type ImageAlreadyExistsException struct {
 	Message *string
-
-	ErrorCodeOverride *string
 
 	noSmithyDocumentSerde
 }
@@ -52,20 +43,13 @@ func (e *ImageAlreadyExistsException) ErrorMessage() string {
 	}
 	return *e.Message
 }
-func (e *ImageAlreadyExistsException) ErrorCode() string {
-	if e == nil || e.ErrorCodeOverride == nil {
-		return "ImageAlreadyExistsException"
-	}
-	return *e.ErrorCodeOverride
-}
+func (e *ImageAlreadyExistsException) ErrorCode() string             { return "ImageAlreadyExistsException" }
 func (e *ImageAlreadyExistsException) ErrorFault() smithy.ErrorFault { return smithy.FaultClient }
 
 // The specified image digest does not match the digest that Amazon ECR calculated
 // for the image.
 type ImageDigestDoesNotMatchException struct {
 	Message *string
-
-	ErrorCodeOverride *string
 
 	noSmithyDocumentSerde
 }
@@ -80,18 +64,13 @@ func (e *ImageDigestDoesNotMatchException) ErrorMessage() string {
 	return *e.Message
 }
 func (e *ImageDigestDoesNotMatchException) ErrorCode() string {
-	if e == nil || e.ErrorCodeOverride == nil {
-		return "ImageDigestDoesNotMatchException"
-	}
-	return *e.ErrorCodeOverride
+	return "ImageDigestDoesNotMatchException"
 }
 func (e *ImageDigestDoesNotMatchException) ErrorFault() smithy.ErrorFault { return smithy.FaultClient }
 
 // The image requested does not exist in the specified repository.
 type ImageNotFoundException struct {
 	Message *string
-
-	ErrorCodeOverride *string
 
 	noSmithyDocumentSerde
 }
@@ -105,20 +84,13 @@ func (e *ImageNotFoundException) ErrorMessage() string {
 	}
 	return *e.Message
 }
-func (e *ImageNotFoundException) ErrorCode() string {
-	if e == nil || e.ErrorCodeOverride == nil {
-		return "ImageNotFoundException"
-	}
-	return *e.ErrorCodeOverride
-}
+func (e *ImageNotFoundException) ErrorCode() string             { return "ImageNotFoundException" }
 func (e *ImageNotFoundException) ErrorFault() smithy.ErrorFault { return smithy.FaultClient }
 
 // The specified image is tagged with a tag that already exists. The repository is
 // configured for tag immutability.
 type ImageTagAlreadyExistsException struct {
 	Message *string
-
-	ErrorCodeOverride *string
 
 	noSmithyDocumentSerde
 }
@@ -132,20 +104,13 @@ func (e *ImageTagAlreadyExistsException) ErrorMessage() string {
 	}
 	return *e.Message
 }
-func (e *ImageTagAlreadyExistsException) ErrorCode() string {
-	if e == nil || e.ErrorCodeOverride == nil {
-		return "ImageTagAlreadyExistsException"
-	}
-	return *e.ErrorCodeOverride
-}
+func (e *ImageTagAlreadyExistsException) ErrorCode() string             { return "ImageTagAlreadyExistsException" }
 func (e *ImageTagAlreadyExistsException) ErrorFault() smithy.ErrorFault { return smithy.FaultClient }
 
 // The layer digest calculation performed by Amazon ECR upon receipt of the image
 // layer does not match the digest specified.
 type InvalidLayerException struct {
 	Message *string
-
-	ErrorCodeOverride *string
 
 	noSmithyDocumentSerde
 }
@@ -159,20 +124,13 @@ func (e *InvalidLayerException) ErrorMessage() string {
 	}
 	return *e.Message
 }
-func (e *InvalidLayerException) ErrorCode() string {
-	if e == nil || e.ErrorCodeOverride == nil {
-		return "InvalidLayerException"
-	}
-	return *e.ErrorCodeOverride
-}
+func (e *InvalidLayerException) ErrorCode() string             { return "InvalidLayerException" }
 func (e *InvalidLayerException) ErrorFault() smithy.ErrorFault { return smithy.FaultClient }
 
 // The layer part size is not valid, or the first byte specified is not consecutive
 // to the last byte of a previous layer part upload.
 type InvalidLayerPartException struct {
 	Message *string
-
-	ErrorCodeOverride *string
 
 	RegistryId            *string
 	RepositoryName        *string
@@ -191,20 +149,13 @@ func (e *InvalidLayerPartException) ErrorMessage() string {
 	}
 	return *e.Message
 }
-func (e *InvalidLayerPartException) ErrorCode() string {
-	if e == nil || e.ErrorCodeOverride == nil {
-		return "InvalidLayerPartException"
-	}
-	return *e.ErrorCodeOverride
-}
+func (e *InvalidLayerPartException) ErrorCode() string             { return "InvalidLayerPartException" }
 func (e *InvalidLayerPartException) ErrorFault() smithy.ErrorFault { return smithy.FaultClient }
 
 // The specified parameter is invalid. Review the available parameters for the API
 // request.
 type InvalidParameterException struct {
 	Message *string
-
-	ErrorCodeOverride *string
 
 	noSmithyDocumentSerde
 }
@@ -218,12 +169,7 @@ func (e *InvalidParameterException) ErrorMessage() string {
 	}
 	return *e.Message
 }
-func (e *InvalidParameterException) ErrorCode() string {
-	if e == nil || e.ErrorCodeOverride == nil {
-		return "InvalidParameterException"
-	}
-	return *e.ErrorCodeOverride
-}
+func (e *InvalidParameterException) ErrorCode() string             { return "InvalidParameterException" }
 func (e *InvalidParameterException) ErrorFault() smithy.ErrorFault { return smithy.FaultClient }
 
 // An invalid parameter has been specified. Tag keys can have a maximum character
@@ -231,8 +177,6 @@ func (e *InvalidParameterException) ErrorFault() smithy.ErrorFault { return smit
 // characters.
 type InvalidTagParameterException struct {
 	Message *string
-
-	ErrorCodeOverride *string
 
 	noSmithyDocumentSerde
 }
@@ -246,19 +190,12 @@ func (e *InvalidTagParameterException) ErrorMessage() string {
 	}
 	return *e.Message
 }
-func (e *InvalidTagParameterException) ErrorCode() string {
-	if e == nil || e.ErrorCodeOverride == nil {
-		return "InvalidTagParameterException"
-	}
-	return *e.ErrorCodeOverride
-}
+func (e *InvalidTagParameterException) ErrorCode() string             { return "InvalidTagParameterException" }
 func (e *InvalidTagParameterException) ErrorFault() smithy.ErrorFault { return smithy.FaultClient }
 
 // The operation failed due to a KMS exception.
 type KmsException struct {
 	Message *string
-
-	ErrorCodeOverride *string
 
 	KmsError *string
 
@@ -274,19 +211,12 @@ func (e *KmsException) ErrorMessage() string {
 	}
 	return *e.Message
 }
-func (e *KmsException) ErrorCode() string {
-	if e == nil || e.ErrorCodeOverride == nil {
-		return "KmsException"
-	}
-	return *e.ErrorCodeOverride
-}
+func (e *KmsException) ErrorCode() string             { return "KmsException" }
 func (e *KmsException) ErrorFault() smithy.ErrorFault { return smithy.FaultClient }
 
 // The image layer already exists in the associated repository.
 type LayerAlreadyExistsException struct {
 	Message *string
-
-	ErrorCodeOverride *string
 
 	noSmithyDocumentSerde
 }
@@ -300,20 +230,13 @@ func (e *LayerAlreadyExistsException) ErrorMessage() string {
 	}
 	return *e.Message
 }
-func (e *LayerAlreadyExistsException) ErrorCode() string {
-	if e == nil || e.ErrorCodeOverride == nil {
-		return "LayerAlreadyExistsException"
-	}
-	return *e.ErrorCodeOverride
-}
+func (e *LayerAlreadyExistsException) ErrorCode() string             { return "LayerAlreadyExistsException" }
 func (e *LayerAlreadyExistsException) ErrorFault() smithy.ErrorFault { return smithy.FaultClient }
 
 // The specified layer is not available because it is not associated with an image.
 // Unassociated image layers may be cleaned up at any time.
 type LayerInaccessibleException struct {
 	Message *string
-
-	ErrorCodeOverride *string
 
 	noSmithyDocumentSerde
 }
@@ -327,19 +250,12 @@ func (e *LayerInaccessibleException) ErrorMessage() string {
 	}
 	return *e.Message
 }
-func (e *LayerInaccessibleException) ErrorCode() string {
-	if e == nil || e.ErrorCodeOverride == nil {
-		return "LayerInaccessibleException"
-	}
-	return *e.ErrorCodeOverride
-}
+func (e *LayerInaccessibleException) ErrorCode() string             { return "LayerInaccessibleException" }
 func (e *LayerInaccessibleException) ErrorFault() smithy.ErrorFault { return smithy.FaultClient }
 
 // Layer parts must be at least 5 MiB in size.
 type LayerPartTooSmallException struct {
 	Message *string
-
-	ErrorCodeOverride *string
 
 	noSmithyDocumentSerde
 }
@@ -353,20 +269,13 @@ func (e *LayerPartTooSmallException) ErrorMessage() string {
 	}
 	return *e.Message
 }
-func (e *LayerPartTooSmallException) ErrorCode() string {
-	if e == nil || e.ErrorCodeOverride == nil {
-		return "LayerPartTooSmallException"
-	}
-	return *e.ErrorCodeOverride
-}
+func (e *LayerPartTooSmallException) ErrorCode() string             { return "LayerPartTooSmallException" }
 func (e *LayerPartTooSmallException) ErrorFault() smithy.ErrorFault { return smithy.FaultClient }
 
 // The specified layers could not be found, or the specified layer is not valid for
 // this repository.
 type LayersNotFoundException struct {
 	Message *string
-
-	ErrorCodeOverride *string
 
 	noSmithyDocumentSerde
 }
@@ -380,19 +289,12 @@ func (e *LayersNotFoundException) ErrorMessage() string {
 	}
 	return *e.Message
 }
-func (e *LayersNotFoundException) ErrorCode() string {
-	if e == nil || e.ErrorCodeOverride == nil {
-		return "LayersNotFoundException"
-	}
-	return *e.ErrorCodeOverride
-}
+func (e *LayersNotFoundException) ErrorCode() string             { return "LayersNotFoundException" }
 func (e *LayersNotFoundException) ErrorFault() smithy.ErrorFault { return smithy.FaultClient }
 
 // The lifecycle policy could not be found, and no policy is set to the repository.
 type LifecyclePolicyNotFoundException struct {
 	Message *string
-
-	ErrorCodeOverride *string
 
 	noSmithyDocumentSerde
 }
@@ -407,10 +309,7 @@ func (e *LifecyclePolicyNotFoundException) ErrorMessage() string {
 	return *e.Message
 }
 func (e *LifecyclePolicyNotFoundException) ErrorCode() string {
-	if e == nil || e.ErrorCodeOverride == nil {
-		return "LifecyclePolicyNotFoundException"
-	}
-	return *e.ErrorCodeOverride
+	return "LifecyclePolicyNotFoundException"
 }
 func (e *LifecyclePolicyNotFoundException) ErrorFault() smithy.ErrorFault { return smithy.FaultClient }
 
@@ -418,8 +317,6 @@ func (e *LifecyclePolicyNotFoundException) ErrorFault() smithy.ErrorFault { retu
 // again.
 type LifecyclePolicyPreviewInProgressException struct {
 	Message *string
-
-	ErrorCodeOverride *string
 
 	noSmithyDocumentSerde
 }
@@ -434,10 +331,7 @@ func (e *LifecyclePolicyPreviewInProgressException) ErrorMessage() string {
 	return *e.Message
 }
 func (e *LifecyclePolicyPreviewInProgressException) ErrorCode() string {
-	if e == nil || e.ErrorCodeOverride == nil {
-		return "LifecyclePolicyPreviewInProgressException"
-	}
-	return *e.ErrorCodeOverride
+	return "LifecyclePolicyPreviewInProgressException"
 }
 func (e *LifecyclePolicyPreviewInProgressException) ErrorFault() smithy.ErrorFault {
 	return smithy.FaultClient
@@ -446,8 +340,6 @@ func (e *LifecyclePolicyPreviewInProgressException) ErrorFault() smithy.ErrorFau
 // There is no dry run for this repository.
 type LifecyclePolicyPreviewNotFoundException struct {
 	Message *string
-
-	ErrorCodeOverride *string
 
 	noSmithyDocumentSerde
 }
@@ -462,10 +354,7 @@ func (e *LifecyclePolicyPreviewNotFoundException) ErrorMessage() string {
 	return *e.Message
 }
 func (e *LifecyclePolicyPreviewNotFoundException) ErrorCode() string {
-	if e == nil || e.ErrorCodeOverride == nil {
-		return "LifecyclePolicyPreviewNotFoundException"
-	}
-	return *e.ErrorCodeOverride
+	return "LifecyclePolicyPreviewNotFoundException"
 }
 func (e *LifecyclePolicyPreviewNotFoundException) ErrorFault() smithy.ErrorFault {
 	return smithy.FaultClient
@@ -477,8 +366,6 @@ func (e *LifecyclePolicyPreviewNotFoundException) ErrorFault() smithy.ErrorFault
 // the Amazon Elastic Container Registry User Guide.
 type LimitExceededException struct {
 	Message *string
-
-	ErrorCodeOverride *string
 
 	noSmithyDocumentSerde
 }
@@ -492,20 +379,13 @@ func (e *LimitExceededException) ErrorMessage() string {
 	}
 	return *e.Message
 }
-func (e *LimitExceededException) ErrorCode() string {
-	if e == nil || e.ErrorCodeOverride == nil {
-		return "LimitExceededException"
-	}
-	return *e.ErrorCodeOverride
-}
+func (e *LimitExceededException) ErrorCode() string             { return "LimitExceededException" }
 func (e *LimitExceededException) ErrorFault() smithy.ErrorFault { return smithy.FaultClient }
 
 // A pull through cache rule with these settings already exists for the private
 // registry.
 type PullThroughCacheRuleAlreadyExistsException struct {
 	Message *string
-
-	ErrorCodeOverride *string
 
 	noSmithyDocumentSerde
 }
@@ -520,10 +400,7 @@ func (e *PullThroughCacheRuleAlreadyExistsException) ErrorMessage() string {
 	return *e.Message
 }
 func (e *PullThroughCacheRuleAlreadyExistsException) ErrorCode() string {
-	if e == nil || e.ErrorCodeOverride == nil {
-		return "PullThroughCacheRuleAlreadyExistsException"
-	}
-	return *e.ErrorCodeOverride
+	return "PullThroughCacheRuleAlreadyExistsException"
 }
 func (e *PullThroughCacheRuleAlreadyExistsException) ErrorFault() smithy.ErrorFault {
 	return smithy.FaultClient
@@ -533,8 +410,6 @@ func (e *PullThroughCacheRuleAlreadyExistsException) ErrorFault() smithy.ErrorFa
 // rule and try again.
 type PullThroughCacheRuleNotFoundException struct {
 	Message *string
-
-	ErrorCodeOverride *string
 
 	noSmithyDocumentSerde
 }
@@ -549,10 +424,7 @@ func (e *PullThroughCacheRuleNotFoundException) ErrorMessage() string {
 	return *e.Message
 }
 func (e *PullThroughCacheRuleNotFoundException) ErrorCode() string {
-	if e == nil || e.ErrorCodeOverride == nil {
-		return "PullThroughCacheRuleNotFoundException"
-	}
-	return *e.ErrorCodeOverride
+	return "PullThroughCacheRuleNotFoundException"
 }
 func (e *PullThroughCacheRuleNotFoundException) ErrorFault() smithy.ErrorFault {
 	return smithy.FaultClient
@@ -561,8 +433,6 @@ func (e *PullThroughCacheRuleNotFoundException) ErrorFault() smithy.ErrorFault {
 // The manifest list is referencing an image that does not exist.
 type ReferencedImagesNotFoundException struct {
 	Message *string
-
-	ErrorCodeOverride *string
 
 	noSmithyDocumentSerde
 }
@@ -577,18 +447,13 @@ func (e *ReferencedImagesNotFoundException) ErrorMessage() string {
 	return *e.Message
 }
 func (e *ReferencedImagesNotFoundException) ErrorCode() string {
-	if e == nil || e.ErrorCodeOverride == nil {
-		return "ReferencedImagesNotFoundException"
-	}
-	return *e.ErrorCodeOverride
+	return "ReferencedImagesNotFoundException"
 }
 func (e *ReferencedImagesNotFoundException) ErrorFault() smithy.ErrorFault { return smithy.FaultClient }
 
 // The registry doesn't have an associated registry policy.
 type RegistryPolicyNotFoundException struct {
 	Message *string
-
-	ErrorCodeOverride *string
 
 	noSmithyDocumentSerde
 }
@@ -603,18 +468,13 @@ func (e *RegistryPolicyNotFoundException) ErrorMessage() string {
 	return *e.Message
 }
 func (e *RegistryPolicyNotFoundException) ErrorCode() string {
-	if e == nil || e.ErrorCodeOverride == nil {
-		return "RegistryPolicyNotFoundException"
-	}
-	return *e.ErrorCodeOverride
+	return "RegistryPolicyNotFoundException"
 }
 func (e *RegistryPolicyNotFoundException) ErrorFault() smithy.ErrorFault { return smithy.FaultClient }
 
 // The specified repository already exists in the specified registry.
 type RepositoryAlreadyExistsException struct {
 	Message *string
-
-	ErrorCodeOverride *string
 
 	noSmithyDocumentSerde
 }
@@ -629,10 +489,7 @@ func (e *RepositoryAlreadyExistsException) ErrorMessage() string {
 	return *e.Message
 }
 func (e *RepositoryAlreadyExistsException) ErrorCode() string {
-	if e == nil || e.ErrorCodeOverride == nil {
-		return "RepositoryAlreadyExistsException"
-	}
-	return *e.ErrorCodeOverride
+	return "RepositoryAlreadyExistsException"
 }
 func (e *RepositoryAlreadyExistsException) ErrorFault() smithy.ErrorFault { return smithy.FaultClient }
 
@@ -640,8 +497,6 @@ func (e *RepositoryAlreadyExistsException) ErrorFault() smithy.ErrorFault { retu
 // images, you must force the deletion with the force parameter.
 type RepositoryNotEmptyException struct {
 	Message *string
-
-	ErrorCodeOverride *string
 
 	noSmithyDocumentSerde
 }
@@ -655,12 +510,7 @@ func (e *RepositoryNotEmptyException) ErrorMessage() string {
 	}
 	return *e.Message
 }
-func (e *RepositoryNotEmptyException) ErrorCode() string {
-	if e == nil || e.ErrorCodeOverride == nil {
-		return "RepositoryNotEmptyException"
-	}
-	return *e.ErrorCodeOverride
-}
+func (e *RepositoryNotEmptyException) ErrorCode() string             { return "RepositoryNotEmptyException" }
 func (e *RepositoryNotEmptyException) ErrorFault() smithy.ErrorFault { return smithy.FaultClient }
 
 // The specified repository could not be found. Check the spelling of the specified
@@ -668,8 +518,6 @@ func (e *RepositoryNotEmptyException) ErrorFault() smithy.ErrorFault { return sm
 // registry.
 type RepositoryNotFoundException struct {
 	Message *string
-
-	ErrorCodeOverride *string
 
 	noSmithyDocumentSerde
 }
@@ -683,20 +531,13 @@ func (e *RepositoryNotFoundException) ErrorMessage() string {
 	}
 	return *e.Message
 }
-func (e *RepositoryNotFoundException) ErrorCode() string {
-	if e == nil || e.ErrorCodeOverride == nil {
-		return "RepositoryNotFoundException"
-	}
-	return *e.ErrorCodeOverride
-}
+func (e *RepositoryNotFoundException) ErrorCode() string             { return "RepositoryNotFoundException" }
 func (e *RepositoryNotFoundException) ErrorFault() smithy.ErrorFault { return smithy.FaultClient }
 
 // The specified repository and registry combination does not have an associated
 // repository policy.
 type RepositoryPolicyNotFoundException struct {
 	Message *string
-
-	ErrorCodeOverride *string
 
 	noSmithyDocumentSerde
 }
@@ -711,10 +552,7 @@ func (e *RepositoryPolicyNotFoundException) ErrorMessage() string {
 	return *e.Message
 }
 func (e *RepositoryPolicyNotFoundException) ErrorCode() string {
-	if e == nil || e.ErrorCodeOverride == nil {
-		return "RepositoryPolicyNotFoundException"
-	}
-	return *e.ErrorCodeOverride
+	return "RepositoryPolicyNotFoundException"
 }
 func (e *RepositoryPolicyNotFoundException) ErrorFault() smithy.ErrorFault { return smithy.FaultClient }
 
@@ -722,8 +560,6 @@ func (e *RepositoryPolicyNotFoundException) ErrorFault() smithy.ErrorFault { ret
 // enabled on the repository and try again.
 type ScanNotFoundException struct {
 	Message *string
-
-	ErrorCodeOverride *string
 
 	noSmithyDocumentSerde
 }
@@ -737,19 +573,12 @@ func (e *ScanNotFoundException) ErrorMessage() string {
 	}
 	return *e.Message
 }
-func (e *ScanNotFoundException) ErrorCode() string {
-	if e == nil || e.ErrorCodeOverride == nil {
-		return "ScanNotFoundException"
-	}
-	return *e.ErrorCodeOverride
-}
+func (e *ScanNotFoundException) ErrorCode() string             { return "ScanNotFoundException" }
 func (e *ScanNotFoundException) ErrorFault() smithy.ErrorFault { return smithy.FaultClient }
 
 // These errors are usually caused by a server-side issue.
 type ServerException struct {
 	Message *string
-
-	ErrorCodeOverride *string
 
 	noSmithyDocumentSerde
 }
@@ -763,20 +592,13 @@ func (e *ServerException) ErrorMessage() string {
 	}
 	return *e.Message
 }
-func (e *ServerException) ErrorCode() string {
-	if e == nil || e.ErrorCodeOverride == nil {
-		return "ServerException"
-	}
-	return *e.ErrorCodeOverride
-}
+func (e *ServerException) ErrorCode() string             { return "ServerException" }
 func (e *ServerException) ErrorFault() smithy.ErrorFault { return smithy.FaultServer }
 
 // The list of tags on the repository is over the limit. The maximum number of tags
 // that can be applied to a repository is 50.
 type TooManyTagsException struct {
 	Message *string
-
-	ErrorCodeOverride *string
 
 	noSmithyDocumentSerde
 }
@@ -790,19 +612,12 @@ func (e *TooManyTagsException) ErrorMessage() string {
 	}
 	return *e.Message
 }
-func (e *TooManyTagsException) ErrorCode() string {
-	if e == nil || e.ErrorCodeOverride == nil {
-		return "TooManyTagsException"
-	}
-	return *e.ErrorCodeOverride
-}
+func (e *TooManyTagsException) ErrorCode() string             { return "TooManyTagsException" }
 func (e *TooManyTagsException) ErrorFault() smithy.ErrorFault { return smithy.FaultClient }
 
 // The image is of a type that cannot be scanned.
 type UnsupportedImageTypeException struct {
 	Message *string
-
-	ErrorCodeOverride *string
 
 	noSmithyDocumentSerde
 }
@@ -816,19 +631,12 @@ func (e *UnsupportedImageTypeException) ErrorMessage() string {
 	}
 	return *e.Message
 }
-func (e *UnsupportedImageTypeException) ErrorCode() string {
-	if e == nil || e.ErrorCodeOverride == nil {
-		return "UnsupportedImageTypeException"
-	}
-	return *e.ErrorCodeOverride
-}
+func (e *UnsupportedImageTypeException) ErrorCode() string             { return "UnsupportedImageTypeException" }
 func (e *UnsupportedImageTypeException) ErrorFault() smithy.ErrorFault { return smithy.FaultClient }
 
 // The specified upstream registry isn't supported.
 type UnsupportedUpstreamRegistryException struct {
 	Message *string
-
-	ErrorCodeOverride *string
 
 	noSmithyDocumentSerde
 }
@@ -843,10 +651,7 @@ func (e *UnsupportedUpstreamRegistryException) ErrorMessage() string {
 	return *e.Message
 }
 func (e *UnsupportedUpstreamRegistryException) ErrorCode() string {
-	if e == nil || e.ErrorCodeOverride == nil {
-		return "UnsupportedUpstreamRegistryException"
-	}
-	return *e.ErrorCodeOverride
+	return "UnsupportedUpstreamRegistryException"
 }
 func (e *UnsupportedUpstreamRegistryException) ErrorFault() smithy.ErrorFault {
 	return smithy.FaultClient
@@ -856,8 +661,6 @@ func (e *UnsupportedUpstreamRegistryException) ErrorFault() smithy.ErrorFault {
 // repository.
 type UploadNotFoundException struct {
 	Message *string
-
-	ErrorCodeOverride *string
 
 	noSmithyDocumentSerde
 }
@@ -871,19 +674,12 @@ func (e *UploadNotFoundException) ErrorMessage() string {
 	}
 	return *e.Message
 }
-func (e *UploadNotFoundException) ErrorCode() string {
-	if e == nil || e.ErrorCodeOverride == nil {
-		return "UploadNotFoundException"
-	}
-	return *e.ErrorCodeOverride
-}
+func (e *UploadNotFoundException) ErrorCode() string             { return "UploadNotFoundException" }
 func (e *UploadNotFoundException) ErrorFault() smithy.ErrorFault { return smithy.FaultClient }
 
 // There was an exception validating this request.
 type ValidationException struct {
 	Message *string
-
-	ErrorCodeOverride *string
 
 	noSmithyDocumentSerde
 }
@@ -897,10 +693,5 @@ func (e *ValidationException) ErrorMessage() string {
 	}
 	return *e.Message
 }
-func (e *ValidationException) ErrorCode() string {
-	if e == nil || e.ErrorCodeOverride == nil {
-		return "ValidationException"
-	}
-	return *e.ErrorCodeOverride
-}
+func (e *ValidationException) ErrorCode() string             { return "ValidationException" }
 func (e *ValidationException) ErrorFault() smithy.ErrorFault { return smithy.FaultClient }
