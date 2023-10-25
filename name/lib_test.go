@@ -199,6 +199,21 @@ func TestParseReference(t *testing.T) {
 			},
 			wantErr: false,
 		},
+		{
+			name: "registry.k8s.io",
+			args: args{
+				s: "registry.k8s.io/ingress-nginx/controller:v1.9.3",
+			},
+			want: &Image{
+				Original:   "registry.k8s.io/ingress-nginx/controller:v1.9.3",
+				Name:       "registry.k8s.io/ingress-nginx/controller:v1.9.3",
+				Registry:   "registry.k8s.io",
+				Repository: "ingress-nginx/controller",
+				Tag:        "v1.9.3",
+				Digest:     "",
+			},
+			wantErr: false,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
