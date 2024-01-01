@@ -39,7 +39,7 @@ func NewRootCmd() *cobra.Command {
 		Long:              "Print docker image digest",
 		DisableAutoGenTag: true,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			ctrl.SetLogger(klogr.New())
+			ctrl.SetLogger(klogr.New()) // nolint:staticcheck
 			cfg := ctrl.GetConfigOrDie()
 			cfg.QPS = 100
 			cfg.Burst = 100

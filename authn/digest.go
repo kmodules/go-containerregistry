@@ -43,7 +43,7 @@ import (
 var (
 	insecureRegistries  []string
 	once                sync.Once
-	insecureRegistrySet sets.String
+	insecureRegistrySet sets.Set[string]
 
 	SkipImageDigest string
 	amazonKeychain  = authn.NewKeychainFromHelper(ecr.NewECRHelper(ecr.WithLogger(io.Discard)))
@@ -152,7 +152,7 @@ func probablyInsecureRegistry(s string) bool {
 	parts := strings.Split(s, "/")
 	if len(parts) > 1 && strings.ContainsRune(parts[0], '.') {
 		once.Do(func() {
-			insecureRegistrySet = sets.NewString(insecureRegistries...)
+			insecureRegistrySet = sets.New[string](insecureRegistries...)
 		})
 		if insecureRegistrySet.Has(parts[0]) {
 			return true
