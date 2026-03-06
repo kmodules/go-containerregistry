@@ -35,7 +35,7 @@ type Image struct {
 	Digest     string
 }
 
-func parseReference(s string, extractTag bool, opts ...name.Option) (*Image, error) {
+func parseReference(s string, extractDigest bool, opts ...name.Option) (*Image, error) {
 	ref, err := name.ParseReference(s, opts...)
 	if err != nil {
 		return nil, err
@@ -47,7 +47,7 @@ func parseReference(s string, extractTag bool, opts ...name.Option) (*Image, err
 		img.Registry = u.RegistryStr()
 		img.Repository = u.RepositoryStr()
 		img.Tag = u.TagStr()
-		if extractTag {
+		if extractDigest {
 			img.Digest, err = crane.Digest(s, crane.WithAuthFromKeychain(authn.DefaultKeychain))
 			if err != nil {
 				return nil, err
